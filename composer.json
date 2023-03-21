@@ -1,0 +1,15 @@
+{
+    "require": {
+        "vlucas/phpdotenv": "^5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Src\\": "src/"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "php -r 'echo \"Hello World!\n\";'"
+        ]
+    }
+}
