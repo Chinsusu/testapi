@@ -76,6 +76,10 @@ class ProxyController {
 
         $output = exec('sudo /root/tool/adduser.sh '.$input["username"].' '.$input["password"].' '.$input["ip"].' '.$input["proxy_port"].' '.$input["socks_port"]);
 
+         if($output !== 99 ){
+            return $this->invaildRequest();
+        }
+
         $response['status_code_header'] = 'HTTP/2.0 201 Created';
         $response['body'] = json_encode([
             'success' => true,
