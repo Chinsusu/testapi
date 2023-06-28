@@ -64,7 +64,7 @@ class ProxyController {
     private function createProxy()
     {
         $input = (array) json_decode(file_get_contents('php://input'), TRUE);
- 
+        $status = false;
         if(!$this->validateProxy($input)){
            return $this->unprocessableEntityResponse();
         }
@@ -76,13 +76,13 @@ class ProxyController {
 
         $output = exec('sudo /root/tool/adduser.sh '.$input["username"].' '.$input["password"].' '.$input["ip"].' '.$input["proxy_port"].' '.$input["socks_port"]);
 
-         if($output !== 99 ){
-            return $this->invaildRequest();
+         if($output == 99 ){
+            $status = true;
         }
 
         $response['status_code_header'] = 'HTTP/2.0 201 Created';
         $response['body'] = json_encode([
-            'success' => true,
+            'success' => $status,
             'data' => $output
         ]);
 
